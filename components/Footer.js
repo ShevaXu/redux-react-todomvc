@@ -8,18 +8,7 @@ const FILTER_TITLES = {
   [SHOW_COMPLETED]: 'Completed'
 };
 
-const Footer = (props) => {
-  const renderTodoCount = () => {
-    const { activeCount } = props;
-    const itemWord = activeCount === 1 ? 'item' : 'items';
-
-    return (
-      <span className="todo-count">
-        <strong>{ activeCount || 'No' }</strong> { itemWord } left
-      </span>
-    )
-  };
-  
+const Footer = (props) => {  
   const renderFilterLink = (filter) => {
     const title = FILTER_TITLES[filter];
     const { filter: selectedFilter, onShow } = props;
@@ -33,21 +22,13 @@ const Footer = (props) => {
     )
   };
   
-  const renderClearButton = () => {
-    const { completedCount, onClearCompleted } = props;
-    if (completedCount > 0) {
-      return (
-        <button className="clear-completed"
-          onClick={ onClearCompleted } >
-          Clear completed
-        </button>
-      )
-    }
-  };
+  const { completedCount, activeCount, onClearCompleted } = props;
   
   return (
     <footer className="footer">
-      { renderTodoCount() }
+      <span className="todo-count">
+        <strong>{ activeCount || 'No' }</strong> { activeCount === 1 ? 'item' : 'items' } left
+      </span>
       <ul className="filters">
         { [SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
           <li key={ filter }>
@@ -55,7 +36,16 @@ const Footer = (props) => {
           </li>
         )}
       </ul>
-      { renderClearButton() }
+      { (() => {
+        if (completedCount > 0) {
+          return (
+            <button className="clear-completed"
+              onClick={ onClearCompleted } >
+              Clear completed
+            </button>
+          )
+        }
+      })() }
     </footer>
   )        
 };
@@ -63,9 +53,13 @@ const Footer = (props) => {
 Footer.propTypes = {
   completedCount: PropTypes.number.isRequired,
   activeCount: PropTypes.number.isRequired,
-  filter: PropTypes.string.isRequired,
   onClearCompleted: PropTypes.func.isRequired,
-  onShow: PropTypes.func.isRequired
+  onShow: PropTypes.func.isRequired,
+  filter: PropTypes.oneOf([
+    SHOW_ALL,
+    SHOW_COMPLETED,
+    SHOW_ACTIVE
+  ]).isRequired
 };
 
 export default Footer
