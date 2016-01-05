@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import * as TodoActions from '../ducks/todos'
+import * as FilterAction from '../ducks/filter'
 
 const App = (props) => {
-  const { todos, actions } = props;
+  const { todos, visibilityFilter, actions } = props;
   return (
     <div>
       <Header addTodo={ actions.addTodo } />
-      <MainSection todos={ todos } actions = { actions } />
+      <MainSection todos={ todos } visibilityFilter={ visibilityFilter } actions = { actions } />
     </div>
   )
 };
@@ -20,9 +21,10 @@ App.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({ todos: state.todos });
+const mapStateToProps = (state) => ({ todos: state.todos, visibilityFilter: state.visibilityFilter });
 
-const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(TodoActions, dispatch) });
+const AllActions = Object.assign({}, TodoActions, FilterAction);
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(AllActions, dispatch) });
 
 export default connect(
   mapStateToProps,
