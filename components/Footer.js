@@ -6,12 +6,12 @@ const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
   [SHOW_ACTIVE]: 'Active',
   [SHOW_COMPLETED]: 'Completed'
-};
+}
 
-const Footer = (props) => {  
+const Footer = (props) => {
   const renderFilterLink = (filter) => {
-    const title = FILTER_TITLES[filter];
-    const { filter: selectedFilter, onShow } = props;
+    const title = FILTER_TITLES[filter]
+    const { filter: selectedFilter, onShow } = props
 
     return (
       <a className={classnames({ selected: filter === selectedFilter })}
@@ -20,10 +20,10 @@ const Footer = (props) => {
         { title }
       </a>
     )
-  };
-  
-  const { completedCount, activeCount, onClearCompleted } = props;
-  
+  }
+
+  const { completedCount, activeCount, onClearCompleted } = props
+
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -47,8 +47,8 @@ const Footer = (props) => {
         }
       })() }
     </footer>
-  )        
-};
+  )
+}
 
 Footer.propTypes = {
   completedCount: PropTypes.number.isRequired,
@@ -60,6 +60,6 @@ Footer.propTypes = {
     SHOW_COMPLETED,
     SHOW_ACTIVE
   ]).isRequired
-};
+}
 
 export default Footer

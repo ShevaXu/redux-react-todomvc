@@ -9,15 +9,15 @@ import * as FilterAction from '../ducks/filter'
 import selector from '../selectors/computed'
 
 const App = (props) => {
-  const { numTodos, visibilityFilter, visibleTodos, completedCount, actions } = props;
+  const { numTodos, visibilityFilter, visibleTodos, completedCount, actions } = props
   const renderFooter = () => {
     if (numTodos) {
       return (
         <Footer completedCount={ completedCount }
           activeCount={ numTodos - completedCount }
           filter={ visibilityFilter }
-          onClearCompleted={ () => { actions.clearCompleted(); } }
-          onShow={ (filter) => { actions.changeFilter(filter);} } />
+          onClearCompleted={ () => { actions.clearCompleted() } }
+          onShow={ (filter) => { actions.changeFilter(filter) } } />
       )
     }
   }
@@ -28,7 +28,7 @@ const App = (props) => {
       { renderFooter() }
     </div>
   )
-};
+}
 
 App.propTypes = {
   visibleTodos: PropTypes.array.isRequired,
@@ -36,12 +36,12 @@ App.propTypes = {
   numTodos: PropTypes.number.isRequired,
   completedCount: PropTypes.number.isRequired,
   actions: PropTypes.object.isRequired
-};
+}
 
-const AllActions = Object.assign({}, TodoActions, FilterAction);
-const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(AllActions, dispatch) });
+const AllActions = Object.assign({}, TodoActions, FilterAction)
+const mapDispatchToProps = (dispatch) => ({ actions: bindActionCreators(AllActions, dispatch) })
 
 export default connect(
   selector,
   mapDispatchToProps
-)(App);
+)(App)

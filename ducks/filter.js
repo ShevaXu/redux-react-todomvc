@@ -6,7 +6,7 @@ export const SHOW_ACTIVE = 'show_active'
 
 export const changeFilter = (filter) => ({ type: CHANGE_FILTER, filter: filter })
 
-const initialState = SHOW_ALL;
+const initialState = SHOW_ALL
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
